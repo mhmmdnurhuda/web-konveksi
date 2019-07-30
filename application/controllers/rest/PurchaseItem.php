@@ -53,7 +53,7 @@ class PurchaseItem extends CI_Controller
 
     	if ($delete) {
 
-    		$this->reCalculate() ;
+    		$this->reCalculatePlan() ;
 
 	        $fetch = $this->get();
 
@@ -63,7 +63,66 @@ class PurchaseItem extends CI_Controller
 				)
         	));
     	}
+    }
 
+    public function get_product()
+    {
+        $product_code = $this->input->get('product_code');
+
+        $fetch = $this->db->query("SELECT
+                                      *
+                                    FROM
+                                      t_kain AS k
+                                      INNER JOIN `t_kain_warna` AS w
+                                        ON k.`k_warna_id` = w.`warna_id`
+                                    WHERE k.`kain_id` = ?;
+                                    ", [$product_code]);
+
+        switch ($fetch->num_rows()) {
+            case 1:
+                echo json_encode(array(
+                    "success" => array(
+                        "data" => $fetch->row()
+                    )
+                ));
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+    }
+
+    public function add_new_product()
+    {
+        $post = $this->input->post();
+
+        $this->plan_id = $post['plan_id'];
+
+        $object = array(
+            "d_rencana_kode" => $post['plan_id'],
+            "d_rencana_kain_id" => $post['product']['kain_id'],
+            "d_rencana_kain_nama" => $post['product']['kain_nama'],
+            "d_rencana_kain_warna" => $post['product']['warna_nama'],
+            "d_rencana_kain_satuan" => $post['product']['kain_satuan'],
+            "d_rencana_harga" => $post['product']['price'],
+            "d_rencana_jumlah" => $post['product']['quantity'],
+            "d_rencana_total" => (int)$post['product']['quantity'] * (int)$post['product']['price'],
+        );
+
+        $insert = $this->db->insert('t_rencanabaru_detail', $object);
+
+        if ($insert) {
+            $this->reCalculatePlan() ;
+
+            $fetch = $this->get();
+
+            echo json_encode(array(
+                "success" => array(
+                    "data" => $fetch->data
+                )
+            ));
+        }
     }
 
     private function get($w_items = true)
@@ -98,7 +157,7 @@ class PurchaseItem extends CI_Controller
         }
     }
 
-    private function reCalculate($update = true)
+    private function reCalculatePlan($update = true)
     {	
     	$this->get($this->plan_id);
 

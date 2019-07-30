@@ -35,101 +35,55 @@
 						<div class="canvas-wrapper">
 						
             <form action="<?php echo base_url().'admin/pembeliankain/add_to_cart'?>" method="post">
-            <table>
-			<tr>
-                    <th style="width:130px;padding-bottom:5px;">Kode Rencana</th>
-                    <th style="width:300px;padding-bottom:5px;"> <select name="koderencana" id="kode-rencana" class="selectpicker show-tick form-control" data-live-search="true" title="Pilih Kode Rencana" data-width="67%" placeholder="Pilih Kode Rencana" required>
-                                <?php foreach ($data2->result_array() as $b2) {
-                                    $id_renc=$b2['rencana_kode'];
-									$id_bj=$b2['produk_id'];
-                                    $nm_bj=$b2['produk_nama'];
-									$wrn_bj=$b2['produk_warna'];
-									
-                                        echo "<option value='$id_renc'>$id_renc - $nm_bj - $wrn_bj</option>";
-                                    ?>
-                                        
-                                <?php }?> 
-                                </select></th>
-                    
-                </tr>
-                <tr>
-                    <th style="width:100px;padding-bottom:5px;">No. Nota</th>
-                    <th style="width:300px;padding-bottom:5px;"><input type="text" name="nofak" value="<?php echo $this->session->userdata('nofak');?>" class="form-control input-sm" style="width:200px;" required></th>
-                    
-                </tr>
-                <tr>
-                    <th>Tanggal</th>
-                    <td>
-                        <div class='input-group date' id='datepicker' style="width:200px;">
-                            <input type='text' name="tgl" class="form-control" value="<?php echo $this->session->userdata('tglfak');?>" placeholder="Tanggal..." required/>
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                        </div>
-                    </td>
-                </tr>
-            </table><hr/>
-            <table style="font-size:12px;">
-                <tr>
-                    <th>Kode Kain</th>
-                </tr>
-                <tr>
-                    <th>
-                        <select id="kode_kain" class="selectpicker show-tick form-control" placeholder="Pilih Kode Kain" title="Pilih Kode Kain">
+                <table>
+        			<tr>
+                        <th style="width:130px;padding-bottom:5px;">Kode Rencana</th>
+                        <th style="width:300px;padding-bottom:5px;"> <select name="koderencana" id="kode-rencana" class="selectpicker show-tick form-control" data-live-search="true" title="Pilih Kode Rencana" data-width="67%" placeholder="Pilih Kode Rencana" required>
+                                    <?php foreach ($data2->result_array() as $b2) {
+                                        $id_renc=$b2['rencana_kode'];
+    									$id_bj=$b2['produk_id'];
+                                        $nm_bj=$b2['produk_nama'];
+    									$wrn_bj=$b2['produk_warna'];
+    									
+                                            echo "<option value='$id_renc'>$id_renc - $nm_bj - $wrn_bj</option>";
+                                        ?>
+                                            
+                                    <?php }?> 
+                                    </select></th>
+                        
+                    </tr>
+                    <tr>
+                        <th style="width:100px;padding-bottom:5px;">No. Nota</th>
+                        <th style="width:300px;padding-bottom:5px;"><input type="text" name="nofak" value="<?php echo $this->session->userdata('nofak');?>" class="form-control input-sm" style="width:200px;" required></th>
+                        
+                    </tr>
+                    <tr>
+                        <th>Tanggal</th>
+                        <td>
+                            <div class='input-group date' id='datepicker' style="width:200px;">
+                                <input type='text' name="tgl" class="form-control" value="<?php echo $this->session->userdata('tglfak');?>" placeholder="Tanggal..." required/>
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+                </table><hr/>
+
+            </form>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <form action="javascript:void(0)">
+                        <div class="form-group">
+                            <label for="product_code">Tambah Baru</label>
+                            <select id="product_code" class="selectpicker show-tick form-control" placeholder="Pilih Kode Kain" title="Pilih Kode Kain">
                             <?php foreach ($data->result() as $key => $kain): ?>
                                 <option value="<?= $kain->kain_id ?>"><?= $kain->kain_id ?></option>
                             <?php endforeach; ?>
-                        </select>
-                    </th>                     
-                </tr>
-            </table>
-
-            <div id="detail_kain" style="display:block;">
-
-            </div>
-			
-             </form>
-            <table class="table table-bordered table-condensed" style="font-size:12px;margin-top:10px;">
-                <thead>
-                    <tr>
-                        <th>Kode Kain</th>
-                        <th>Nama Kain</th>
-                        <th style="text-align:center;">Warna</th>
-						<th style="text-align:center;">Satuan</th>
-                        <th style="text-align:center;">Harga</th>
-                        <th style="text-align:center;">Jumlah Beli</th>
-                        <th style="text-align:center;">Sub Total</th>
-                        <th style="width:100px;text-align:center;">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $i = 1; ?>
-                    <?php foreach ($this->cart->contents() as $items): ?>
-                    <?php echo form_hidden($i.'[rowid]', $items['rowid']); ?>
-                    <tr>
-                         <td><?=$items['id'];?></td>
-                         <td><?=$items['name'];?></td>
-						 <td style="text-align:center;"><?=$items['warna'];?></td>
-                         <td style="text-align:center;"><?=$items['satuan'];?></td>
-                         <td style="text-align:right;"><?php echo number_format($items['price']);?></td>
-                         <td style="text-align:center;"><?php echo number_format($items['qty']);?></td>
-                         <td style="text-align:right;"><?php echo number_format($items['subtotal']);?></td>
-                         <td style="text-align:center;"><a href="<?php echo base_url().'admin/pembeliankain/remove/'.$items['rowid'];?>" class="btn btn-warning btn-xs"><span class="fa fa-close"></span> Batal</a></td>
-                    </tr>
-                    <?php $i++; ?>
-                    <?php endforeach; ?>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="6" style="text-align:center;">Total</td>
-                        <td style="text-align:right;">Rp. <?php echo number_format($this->cart->total());?></td>
-                    </tr>
-                </tfoot>
-            </table>
-
-            <div class="row">
-                <div class="co-xs-12">
-                    <button class="btn btn-sm btn-primary" id="add-new-item">Tambah Item</button>
+                            </select>
+                        </div>
+                    </form>
                 </div>
             </div>
 
@@ -156,8 +110,8 @@
                 <dd class="col-sm-9"><span id="total-numeric">0</span></dd>
             </dl>
 
-            <a href="<?php echo base_url().'admin/pembeliankain/simpan_pembelian'?>" class="btn btn-primary btn-lg"><span class="fa fa-save"></span> Simpan</a>
-            </div>
+            <!-- <a href="<?php echo base_url().'admin/pembeliankain/simpan_pembelian'?>" class="btn btn-primary btn-lg"><span class="fa fa-save"></span> Simpan</a>
+            </div> -->
         </div>
         <!-- /.row -->
 
@@ -174,7 +128,7 @@
             </div>
                 <div class="modal-body" style="overflow:scroll;height:400px;">
 
-                  <table class="table table-bordered table-condensed" style="" id="">
+                  <table class="table table-bordered table-condensed" style="" id="table-find-product">
                     <thead>
                         <tr>
                             <th style="text-align:center;width:40px;">No</th>
@@ -200,7 +154,7 @@
 							$k_warna_id=$a['k_warna_id'];                   
 
                     ?>
-                        <tr>
+                        <tr product-id="<?php echo $id;?>">
                             <td style="text-align:center;"><?php echo $no;?></td>
                             <td><?php echo $id;?></td>
                             <td><?php echo $nm;?></td>
@@ -210,15 +164,7 @@
 
 							
                             <td style="text-align:center;">
-                            <form action="<?php echo base_url().'admin/pembeliankain/add_to_cart'?>" method="post">
-                            <input type="hidden" name="kode_kain" value="<?php echo $id?>">
-                            <input type="hidden" name="namakain" value="<?php echo $nm;?>">
-                            <input type="hidden" name="warna" value="<?php echo $warna;?>">
-							<input type="hidden" name="satuan" value="<?php echo $satuan;?>">
-                            <input type="hidden" name="harga" value="<?php echo number_format($harga);?>">
-                            <input type="hidden" name="jumlah" value="1" required>
-                                <button type="submit" class="btn btn-xs btn-info" title="Pilih"><span class="fa fa-edit"></span> Pilih</button>
-                            </form>
+                                <button class="btn btn-xs btn-info btn-select-product" title="Pilih"><span class="fa fa-edit"></span> Pilih</button>
                             </td>
                         </tr>
                     <?php endforeach;?>
@@ -235,25 +181,46 @@
             </div>
         </div>
 
-        <!-- Modal -->
         <div id="new-item-modal" class="modal fade" role="dialog">
-          <div class="modal-dialog">
+            <div class="modal-dialog">
 
-            <!-- Modal content-->
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Modal Header</h4>
-              </div>
-              <div class="modal-body">
-                <p>Some text in the modal.</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Tambah Item Baru</h4>
+                    </div>
+                    <div class="modal-body">
+                        <dl class="row">
+                            <dt class="col-sm-3">Kode Produk</dt>
+                            <dd class="col-sm-9"><span attr-product="kain_id" class="emptyable"></span></dd>
+
+                            <dt class="col-sm-3">Nama Kain</dt>
+                            <dd class="col-sm-9"><span attr-product="kain_nama" class="emptyable"></span></dd>
+
+                            <dt class="col-sm-3">Warna</dt>
+                            <dd class="col-sm-9"><span attr-product="warna_nama" class="emptyable"></span></dd>
+
+                            <dt class="col-sm-3">Satuan</dt>
+                            <dd class="col-sm-9"><span attr-product="kain_satuan" class="emptyable"></span></dd>
+                        </dl>
+                        <form action="javascript:void(0)">
+                            <div class="form-group">
+                                <label for="product_price">Harga</label>
+                                <input type="text" class="form-control currency_format" id="product_price">
+                            </div>
+                            <div class="form-group">
+                                <label for="product_quantity">Kuantitas</label>
+                                <input type="number" class="form-control" id="product_quantity">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="btn-add-new-product" >Tambah Produk</button>
+                    </div>
+                </div>
+
             </div>
-
-          </div>
         </div>
 
     <!-- /.container -->
@@ -282,20 +249,19 @@
             });
     </script>
     <script type="text/javascript">
-        $(function(){
-            $('.harga').priceFormat({
-                    prefix: '',
-                    //centsSeparator: '',
-                    centsLimit: 0,
-                    thousandsSeparator: ','
-            });
-        });
-    </script>
-    <script type="text/javascript">
         $(document).ready(function(){
+
+            $('#table-find-product').DataTable();
             
+            $('.currency_format').priceFormat({
+                    prefix: 'Rp ',
+                    thousandsSeparator: '.',
+                    centsLimit: 0
+            });
+
             const state = {
-                items: []
+                items: [],
+                selected_product: {}
             };
 
             class TableManagement {
@@ -404,20 +370,70 @@
                 $('#new-item-modal').modal('show');
             });
 
-            $("#kode_kain").on('change', function () {
+            $("#product_code").on('change', function () {
                 const body = {
-                    kode_kain:$(this).val()
+                    product_code:$(this).val()
                 };
 
                 $.ajax({
-                    type: "POST",
-                    url: "<?= base_url().'admin/pembeliankain/get_kain';?>",
+                    type: "GET",
+                    url: "<?= base_url('rest/purchase/plan/get-product')?>",
                     data: body,
-                    dataType: "html",
+                    dataType: "json",
                     success: function (response) {
-                        $('#detail_kain').html(response);
+                        if ("success" in response) {
+                            let {data} = response.success;
+
+                            state.selected_product = data;
+
+                            $('[attr-product]').each(function(index, el) {
+                                $(this).html(data[$(this).attr('attr-product')]);
+                            });
+                            $('#new-item-modal').modal('show');
+                        }
                     }
                 });
+            });
+
+            $('#btn-add-new-product').click(function(event) {
+
+                $(this).attr('disabled', 'disabked');
+
+                state.selected_product['quantity'] = $('#product_quantity').val();
+                state.selected_product['price'] = $('#product_price').unmask();
+
+                $.ajax({
+                    url: '<?= base_url('rest/purchase/plan/add-product') ?>',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        product: state.selected_product,
+                        plan_id: $("#kode-rencana").val()
+                    },
+                })
+                .done(function(response) {
+                    if ("success" in response) {
+                        let {data} = response.success;
+                        Table.setItems(data.items);
+                        $('#total-numeric').html(data.rencana_total);
+
+                        $('#new-item-modal').modal('hide');
+                    }
+                })
+                .fail(function() {
+                    console.log("error");
+                })
+                .always(function() {
+                    $('#btn-add-new-product').removeAttr('disabled');
+                });
+                
+            });
+
+            $('.btn-select-product').click(function(event) {
+                const prodcut_id = $(this).parents('tr').attr('product-id');
+                $("#product_code").val(prodcut_id);
+                $("#product_code").trigger('change');
+                $('#largeModal').modal('hide');
             });
 
         });
