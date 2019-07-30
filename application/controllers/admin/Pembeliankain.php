@@ -79,9 +79,9 @@ class Pembeliankain extends CI_Controller{
 			$order_proses=$this->m_pembeliankain->simpan_pembelian($nofak,$tglfak,$koderencana,$beli_kode);
 			if($order_proses){
 				$this->cart->destroy();
-				// $this->session->unset_userdata('nofak');
-				// $this->session->unset_userdata('tglfak');
-				// $this->session->unset_userdata('koderencana');
+				$this->session->unset_userdata('nofak');
+				$this->session->unset_userdata('tglfak');
+				$this->session->unset_userdata('koderencana');
 				echo $this->session->set_flashdata('msg','<label class="label label-success">Pembelian Berhasil di Simpan ke Database</label>');
 				redirect('admin/pembeliankain');	
 			}else{

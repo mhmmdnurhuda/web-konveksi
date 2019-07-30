@@ -5,248 +5,273 @@
 ?>
 
 
-	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-		<div class="row">
-			<ol class="breadcrumb">
-				<li><a href="#">
-					<em class="fa fa-home"></em>
-				</a></li>
-				<li class="active">Pembelian Kain</li>
-			</ol>
-		</div><!--/.row-->
-		
-		<div class="row">
-			<div class="col-lg-12">
-				<h1 class="page-header">Pembelian Kain</h1>
-			</div>
-		</div><!--/.row-->
 
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="panel panel-default">
-				<center><?php echo $this->session->flashdata('msg');?></center>
-					<div class="panel-heading">
-					
-						Input Pembelian Kain
-						<div class="btn btn-sm btn-info pull-right" data-toggle="modal" data-target="#largeModal"><span class="fa fa-search"></span> Cari Kain</a></div>
-						
-					</div>
-					<div class="panel-body">
-						<div class="canvas-wrapper">
-						
-            <form action="<?php echo base_url().'admin/pembeliankain/add_to_cart'?>" method="post">
-                <table>
-        			<tr>
-                        <th style="width:130px;padding-bottom:5px;">Kode Rencana</th>
-                        <th style="width:300px;padding-bottom:5px;"> <select name="koderencana" id="kode-rencana" class="selectpicker show-tick form-control" data-live-search="true" title="Pilih Kode Rencana" data-width="67%" placeholder="Pilih Kode Rencana" required>
-                                    <?php foreach ($data2->result_array() as $b2) {
-                                        $id_renc=$b2['rencana_kode'];
-    									$id_bj=$b2['produk_id'];
-                                        $nm_bj=$b2['produk_nama'];
-    									$wrn_bj=$b2['produk_warna'];
-    									
-                                            echo "<option value='$id_renc'>$id_renc - $nm_bj - $wrn_bj</option>";
-                                        ?>
-                                            
-                                    <?php }?> 
-                                    </select></th>
-                        
-                    </tr>
-                    <tr>
-                        <th style="width:100px;padding-bottom:5px;">No. Nota</th>
-                        <th style="width:300px;padding-bottom:5px;"><input type="text" name="nofak" value="<?php echo $this->session->userdata('nofak');?>" class="form-control input-sm" style="width:200px;" required></th>
-                        
-                    </tr>
-                    <tr>
-                        <th>Tanggal</th>
-                        <td>
-                            <div class='input-group date' id='datepicker' style="width:200px;">
-                                <input type='text' name="tgl" class="form-control" value="<?php echo $this->session->userdata('tglfak');?>" placeholder="Tanggal..." required/>
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li>
+                <a href="#">
+                    <em class="fa fa-home"></em>
+                </a>
+            </li>
+            <li class="active">Pembelian Kain</li>
+        </ol>
+    </div>
+    <!--/.row-->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Pembelian Kain</h1>
+        </div>
+    </div>
+    <!--/.row-->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <center>
+                    <?php echo $this->session->flashdata('msg');?>
+                </center>
+                <div class="panel-heading">
+                    Input Pembelian Kain
+                    <div class="btn btn-sm btn-info pull-right" data-toggle="modal" data-target="#largeModal">
+                        <span class="fa fa-search"></span> Cari Kain</a>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="canvas-wrapper">
+                        <form id="general-form" action="javascript:void(0)">
+                            <table>
+                                <tr>
+                                    <th style="width:130px;padding-bottom:5px;">Kode Rencana</th>
+                                    <th style="width:300px;padding-bottom:5px;">
+                                        <select name="plan_code" id="plan_code" class="selectpicker show-tick form-control" data-live-search="true" title="Pilih Kode Rencana" data-width="67%" placeholder="Pilih Kode Rencana" required>
+                                            <?php foreach ($data2->result_array() as $b2) {
+                                                        $id_renc=$b2['rencana_kode'];
+                                                        $id_bj=$b2['produk_id'];
+                                                        $nm_bj=$b2['produk_nama'];
+                                                        $wrn_bj=$b2['produk_warna'];
+
+                                                            echo "<option value='$id_renc'>$id_renc - $nm_bj - $wrn_bj</option>";
+                                                        ?>
+
+                                                <?php }?>
+                                        </select>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th style="width:100px;padding-bottom:5px;">No. Nota</th>
+                                    <th style="width:300px;padding-bottom:5px;">
+                                        <input type="text" name="inv_number" id="inv_number" class="form-control input-sm" style="width:200px;" required>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>Tanggal</th>
+                                    <td>
+                                        <div class='input-group date' id='datepicker' style="width:200px;">
+                                            <input type='text' name="inv_date" id="inv_date" class="form-control" placeholder="Tanggal..." required/>
+                                            <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <hr/>
+
+                        </form>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <form action="javascript:void(0)">
+                                    <div class="form-group">
+                                        <label for="product_code">Tambah Baru</label>
+                                        <select id="product_code" class="selectpicker show-tick form-control" placeholder="Pilih Kode Kain" title="Pilih Kode Kain">
+                                            <?php foreach ($data->result() as $key => $kain): ?>
+                                                <option value="<?= $kain->kain_id ?>">
+                                                    <?= $kain->kain_id ?>
+                                                </option>
+                                                <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                </form>
                             </div>
-                        </td>
-                    </tr>
-                </table><hr/>
 
-            </form>
+                            <div class="col-xs-12">
+                                <table id="items" class="table table-bordered table-condensed" style="font-size:12px; margin-top:10px;">
+                                    <thead>
+                                        <tr>
+                                            <th>Kode Kain</th>
+                                            <th>Nama Kain</th>
+                                            <th style="text-align:center;">Warna</th>
+                                            <th style="text-align:center;">Satuan</th>
+                                            <th style="text-align:center;">Harga</th>
+                                            <th style="text-align:center;">Jumlah Beli</th>
+                                            <th style="text-align:center;">Sub Total</th>
+                                            <th style="width:100px;text-align:center;">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-            <div class="row">
-                <div class="col-xs-12">
-                    <form action="javascript:void(0)">
-                        <div class="form-group">
-                            <label for="product_code">Tambah Baru</label>
-                            <select id="product_code" class="selectpicker show-tick form-control" placeholder="Pilih Kode Kain" title="Pilih Kode Kain">
-                            <?php foreach ($data->result() as $key => $kain): ?>
-                                <option value="<?= $kain->kain_id ?>"><?= $kain->kain_id ?></option>
-                            <?php endforeach; ?>
-                            </select>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="col-xs-12">
+                                <dl class="row">
+                                    <dt class="col-sm-3">Total</dt>
+                                    <dd class="col-sm-9"><span id="total-numeric">0</span></dd>
+                                </dl>
+                            </div>
+
+                            <div class="col-xs-12">
+                                <!-- <a href="<?php echo base_url().'admin/pembeliankain/simpan_pembelian'?>" class="btn btn-primary btn-lg" id="button-save" disabled="disabled"><span class="fa fa-save"></span> Simpan</a> -->
+                                <button href="<?php echo base_url().'admin/pembeliankain/simpan_pembelian'?>" class="btn btn-primary btn-lg" id="button-save" disabled="disabled"><span class="fa fa-save"></span> Simpan</button>
+                            </div>
                         </div>
-                    </form>
+                    </div>
+
                 </div>
             </div>
-
-            <table id="items" class="table table-bordered table-condensed" style="font-size:12px;margin-top:10px;">
-                <thead>
-                    <tr>
-                        <th>Kode Kain</th>
-                        <th>Nama Kain</th>
-                        <th style="text-align:center;">Warna</th>
-                        <th style="text-align:center;">Satuan</th>
-                        <th style="text-align:center;">Harga</th>
-                        <th style="text-align:center;">Jumlah Beli</th>
-                        <th style="text-align:center;">Sub Total</th>
-                        <th style="width:100px;text-align:center;">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                </tbody>
-            </table>
-
-            <dl class="row">
-                <dt class="col-sm-3">Total</dt>
-                <dd class="col-sm-9"><span id="total-numeric">0</span></dd>
-            </dl>
-
-            <!-- <a href="<?php echo base_url().'admin/pembeliankain/simpan_pembelian'?>" class="btn btn-primary btn-lg"><span class="fa fa-save"></span> Simpan</a>
-            </div> -->
         </div>
-        <!-- /.row -->
-
-
     </div>
-	
-	        <!-- ============ KAIN =============== -->
-        <div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
+
+    <!-- ============ KAIN =============== -->
+    <div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 class="modal-title" id="myModalLabel">Daftar Kain</h3>
-            </div>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 class="modal-title" id="myModalLabel">Daftar Kain</h3>
+                </div>
                 <div class="modal-body" style="overflow:scroll;height:400px;">
 
-                  <table class="table table-bordered table-condensed" style="" id="table-find-product">
-                    <thead>
-                        <tr>
-                            <th style="text-align:center;width:40px;">No</th>
-							<th>Kode Kain</th>
-							<th>Nama Kain</th>
-							<th>Warna Kain</th>
-							<th>Satuan</th>
-							<th>Perkiraan Harga</th>
-							<th style="width:130px;text-align:center;">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <?php 
-                        $no=0;
-                        foreach ($data->result_array() as $a):
-                            $no++;
-                            $id=$a['kain_id'];
-							$nm=$a['kain_nama'];
-							$warna=$a['warna_nama'];
-							$satuan=$a['kain_satuan'];
-							$harga=$a['kain_harga'];                     
-							$stok=$a['kain_stok'];
-							$k_warna_id=$a['k_warna_id'];                   
+                    <table class="table table-bordered table-condensed" style="" id="table-find-product">
+                        <thead>
+                            <tr>
+                                <th style="text-align:center;width:40px;">No</th>
+                                <th>Kode Kain</th>
+                                <th>Nama Kain</th>
+                                <th>Warna Kain</th>
+                                <th>Satuan</th>
+                                <th>Perkiraan Harga</th>
+                                <th style="width:130px;text-align:center;">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php 
+                $no=0;
+                foreach ($data->result_array() as $a):
+                    $no++;
+                    $id=$a['kain_id'];
+                    $nm=$a['kain_nama'];
+                    $warna=$a['warna_nama'];
+                    $satuan=$a['kain_satuan'];
+                    $harga=$a['kain_harga'];                     
+                    $stok=$a['kain_stok'];
+                    $k_warna_id=$a['k_warna_id'];                   
 
-                    ?>
-                        <tr product-id="<?php echo $id;?>">
-                            <td style="text-align:center;"><?php echo $no;?></td>
-                            <td><?php echo $id;?></td>
-                            <td><?php echo $nm;?></td>
-							<td><?php echo $warna;?></td>
-							<td><?php echo $satuan;?></td>
-                            <td style="text-align:right;"><?php echo 'Rp '.number_format($harga);?></td>
+            ?>
+                                <tr product-id="<?php echo $id;?>">
+                                    <td style="text-align:center;">
+                                        <?php echo $no;?>
+                                    </td>
+                                    <td>
+                                        <?php echo $id;?>
+                                    </td>
+                                    <td>
+                                        <?php echo $nm;?>
+                                    </td>
+                                    <td>
+                                        <?php echo $warna;?>
+                                    </td>
+                                    <td>
+                                        <?php echo $satuan;?>
+                                    </td>
+                                    <td style="text-align:right;">
+                                        <?php echo 'Rp '.number_format($harga);?>
+                                    </td>
 
-							
-                            <td style="text-align:center;">
-                                <button class="btn btn-xs btn-info btn-select-product" title="Pilih"><span class="fa fa-edit"></span> Pilih</button>
-                            </td>
-                        </tr>
-                    <?php endforeach;?>
-                    </tbody>
-                </table>          
+                                    <td style="text-align:center;">
+                                        <button class="btn btn-xs btn-info btn-select-product" title="Pilih"><span class="fa fa-edit"></span> Pilih</button>
+                                    </td>
+                                </tr>
+                                <?php endforeach;?>
+                        </tbody>
+                    </table>
 
                 </div>
 
                 <div class="modal-footer">
                     <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
-                    
+
                 </div>
             </div>
-            </div>
         </div>
+    </div>
 
-        <div id="new-item-modal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
+    <div id="new-item-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
 
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Tambah Item Baru</h4>
-                    </div>
-                    <div class="modal-body">
-                        <dl class="row">
-                            <dt class="col-sm-3">Kode Produk</dt>
-                            <dd class="col-sm-9"><span attr-product="kain_id" class="emptyable"></span></dd>
-
-                            <dt class="col-sm-3">Nama Kain</dt>
-                            <dd class="col-sm-9"><span attr-product="kain_nama" class="emptyable"></span></dd>
-
-                            <dt class="col-sm-3">Warna</dt>
-                            <dd class="col-sm-9"><span attr-product="warna_nama" class="emptyable"></span></dd>
-
-                            <dt class="col-sm-3">Satuan</dt>
-                            <dd class="col-sm-9"><span attr-product="kain_satuan" class="emptyable"></span></dd>
-                        </dl>
-                        <form action="javascript:void(0)">
-                            <div class="form-group">
-                                <label for="product_price">Harga</label>
-                                <input type="text" class="form-control currency_format" id="product_price">
-                            </div>
-                            <div class="form-group">
-                                <label for="product_quantity">Kuantitas</label>
-                                <input type="number" class="form-control" id="product_quantity">
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="btn-add-new-product" >Tambah Produk</button>
-                    </div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Tambah Item Baru</h4>
                 </div>
+                <div class="modal-body">
+                    <dl class="row">
+                        <dt class="col-sm-3">Kode Produk</dt>
+                        <dd class="col-sm-9"><span attr-product="kain_id"></span></dd>
 
+                        <dt class="col-sm-3">Nama Kain</dt>
+                        <dd class="col-sm-9"><span attr-product="kain_nama"></span></dd>
+
+                        <dt class="col-sm-3">Warna</dt>
+                        <dd class="col-sm-9"><span attr-product="warna_nama"></span></dd>
+
+                        <dt class="col-sm-3">Satuan</dt>
+                        <dd class="col-sm-9"><span attr-product="kain_satuan"></span></dd>
+
+                        <dt class="col-sm-3">Perkiraan Harga</dt>
+                        <dd class="col-sm-9"><span attr-product="kain_harga"></span></dd>
+                    </dl>
+                    <form action="javascript:void(0)">
+                        <div class="form-group">
+                            <label for="product_price">Harga</label>
+                            <input type="text" class="form-control currency_format" id="product_price">
+                        </div>
+                        <div class="form-group">
+                            <label for="product_quantity">Kuantitas</label>
+                            <input type="number" class="form-control" id="product_quantity">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="btn-add-new-product">Tambah Produk</button>
+                </div>
             </div>
+
         </div>
+    </div>
 
-    <!-- /.container -->
-<?php 
-	$this->load->view('admin/templates/v_footer');
-?>
-
-
- 
     <script type="text/javascript">
-            $(function () {
-                $('#datetimepicker').datetimepicker({
-                    format: 'DD MMMM YYYY HH:mm',
-                });
-                
-                $('#datepicker').datetimepicker({
-                    format: 'YYYY-MM-DD',
-                });
-                $('#datepicker2').datetimepicker({
-                    format: 'YYYY-MM-DD',
-                });
-
-                $('#timepicker').datetimepicker({
-                    format: 'HH:mm'
-                });
+        $(function () {
+            $('#datetimepicker').datetimepicker({
+                format: 'DD MMMM YYYY HH:mm',
             });
+            
+            $('#datepicker').datetimepicker({
+                format: 'YYYY-MM-DD',
+            });
+            $('#datepicker2').datetimepicker({
+                format: 'YYYY-MM-DD',
+            });
+
+            $('#timepicker').datetimepicker({
+                format: 'HH:mm'
+            });
+        });
     </script>
     <script type="text/javascript">
         $(document).ready(function(){
@@ -322,7 +347,7 @@
                     dataType: 'json',
                     data: {
                         plan_item: item_id,
-                        plan_code: $("#kode-rencana").val(),
+                        plan_code: $("#plan_code").val(),
                     },
                 })
                 .done(function(response) {
@@ -340,7 +365,7 @@
                 });
             });
 
-            $("#kode-rencana").on('change', function () {
+            $("#plan_code").on('change', function () {
                 const this_picker = $(this);
 
                 const value = this_picker.val();
@@ -356,6 +381,8 @@
                         let {data} = response.success;
                         $('#total-numeric').html(data.rencana_total)
                         Table.setItems(data.items);
+
+                        $('#button-save').removeAttr('disabled');
                     }
                 })
                 .fail(function() {
@@ -365,6 +392,11 @@
                     console.log("complete");
                 });
             });
+
+            $('#new-item-modal').on('hide.bs.modal', function () {
+                $('#product_quantity').val(0);
+                $('#product_price').val(0);
+            })
 
             $('#add-new-item').click(function(event) {
                 $('#new-item-modal').modal('show');
@@ -397,7 +429,7 @@
 
             $('#btn-add-new-product').click(function(event) {
 
-                $(this).attr('disabled', 'disabked');
+                $(this).attr('disabled', 'disabled');
 
                 state.selected_product['quantity'] = $('#product_quantity').val();
                 state.selected_product['price'] = $('#product_price').unmask();
@@ -408,7 +440,7 @@
                     dataType: 'json',
                     data: {
                         product: state.selected_product,
-                        plan_id: $("#kode-rencana").val()
+                        plan_id: $("#plan_code").val()
                     },
                 })
                 .done(function(response) {
@@ -437,4 +469,34 @@
             });
 
         });
+
+        $('#button-save').on('click', function(event) {
+            event.preventDefault();
+            
+            $.ajax({
+                url: "<?= base_url('rest/purchase/plan/save') ?>",
+                type: 'POST',
+                dataType: 'json',
+                data: $('#general-form').serialize(),
+            })
+            .done(function(r) {
+                if ("success" in r) {
+                    alert('Berhasil Disimpan!!');
+                    window.location.replace("<?= base_url('admin/pembeliankain') ?>")
+                }
+            })
+            .fail(function() {
+                console.log("error");
+            })
+            .always(function() {
+                console.log("complete");
+            });
+            
+
+        });
+        
     </script>
+
+<?php 
+	$this->load->view('admin/templates/v_footer');
+?>

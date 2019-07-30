@@ -46,6 +46,7 @@ $route['rest/purchase/get-plan'] = 'rest/PurchaseItem/fetch_plan';
 $route['rest/purchase/plan/delete-item'] = 'rest/PurchaseItem/delete_plan_item';
 $route['rest/purchase/plan/get-product'] = 'rest/PurchaseItem/get_product';
 $route['rest/purchase/plan/add-product'] = 'rest/PurchaseItem/add_new_product';
+$route['rest/purchase/plan/save'] = 'rest/PurchaseItem/save_plan';
 
 
 /* End of file routes.php */

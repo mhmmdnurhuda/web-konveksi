@@ -10,6 +10,9 @@ class PurchaseItem extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+
+		$this->load->model('m_pembeliankain');
+
 		header('Content-Type: application/json');
 	}
 
@@ -123,6 +126,26 @@ class PurchaseItem extends CI_Controller
                 )
             ));
         }
+    }
+
+    public function save_plan()
+    {
+    	$post = $this->input->post();
+
+    	$plan_code = $post['plan_code'];
+    	$inv_number = $post['inv_number'];
+    	$inv_date = $post['inv_date'];
+
+    	$purchase_code = $this->m_pembeliankain->get_kobel();
+    	$order = $this->m_pembeliankain->simpan_pembelian($inv_number, $inv_date, $plan_code, $purchase_code);
+
+    	if ($order) {
+    		echo json_encode(array(
+    		    "success" => array(
+    		        "data" => []
+    		    )
+    		));
+    	}
     }
 
     private function get($w_items = true)

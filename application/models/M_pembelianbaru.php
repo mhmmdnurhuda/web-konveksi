@@ -4,20 +4,40 @@ class M_pembelianbaru extends CI_Model{
 	function simpan_pembelian($nofak,$tglfak,$koderencana,$beli_kode){
 		$idadmin=$this->session->userdata('idadmin');
 		$this->db->query("INSERT INTO t_belikain (beli_nofak,beli_tanggal,beli_user_id,beli_kode,beli_rencana_kode) VALUES ('$nofak','$tglfak','$idadmin','$beli_kode','$koderencana')");
-		foreach ($this->cart->contents() as $item) {
+
+		$this->db->where('d_rencana_kode', $koderencana);
+		$fetch_detail = $this->db->get('t_rencanabaru_detail');
+
+		var_dump($fetch_detail->result());
+		die();
+
+		foreach ($fetch_detail->result() as $item) {
 			$data=array(
 				'd_beli_nofak' 		=>	$nofak,
-				'd_beli_kain_id'	=>	$item['id'],
-				'd_beli_kain_nama'	=>	$item['name'],
-				'd_beli_kain_warna'	=>	$item['warna'],
-				'd_beli_kain_satuan'=>	$item['satuan'],
-				'd_beli_harga'		=>	$item['price'],
-				'd_beli_jumlah'		=>	$item['qty'],
-				'd_beli_total'		=>	$item['subtotal'],
+				'd_beli_kain_id'	=>	$item->d_rencana_kain_id,
+				'd_beli_kain_nama'	=>	$item->d_rencana_kain_nama,
+				'd_beli_kain_warna'	=>	$item->d_rencana_kain_warna,
+				'd_beli_kain_satuan'=>	$item->d_rencana_kain_satuan,
+				'd_beli_harga'		=>	$item->d_rencana_harga,
+				'd_beli_jumlah'		=>	$item->d_rencana_jumlah,
+				'd_beli_total'		=>	$item->d_rencana_total,
 				'd_beli_kode'		=>	$beli_kode
 			);
-			$this->db->insert('t_belikain_detail',$data);
-			$this->db->query("update t_kain set kain_stok=kain_stok+'$item[qty]',kain_harga='$item[price]' where kain_id='$item[id]'");
+
+			var_dump($data);
+
+			$this->db->insert('t_belikain_detail', $data);
+			$this->db->query("UPDATE
+							    t_kain
+							SET
+							    kain_stok = kain_stok + ?,
+							    kain_harga = ?
+							WHERE kain_id = ?", [
+								$item->d_rencana_jumlah,
+								$item->d_rencana_harga,
+								$item->d_rencana_kain_id
+							]
+			);
 		}
 		return true;
 	}
