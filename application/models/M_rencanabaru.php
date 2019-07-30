@@ -44,7 +44,7 @@ class M_rencanabaru extends CI_Model{
 	}
 	
 	function tampil_rencana(){
-		$hsl=$this->db->query("SELECT rencana_kode,r_produk_id,produk_nama,produk_warna,rencana_jumlah,tgl_mulai,perkiraan_selesai FROM t_rencanabaru JOIN t_produkbaju ON r_produk_id=produk_id where rencana_status='0' order by rencana_kode asc");
+		$hsl=$this->db->query("SELECT rencana_kode,r_produk_id,produk_nama,produk_warna,rencana_jumlah,tgl_mulai,perkiraan_selesai FROM t_rencanabaru JOIN t_produkbaju ON r_produk_id=produk_id order by rencana_kode asc");
 		return $hsl;
 	}
 	function tampil_rencanadetail(){

@@ -42,6 +42,8 @@ $route['default_controller'] = "administrator";
 $route['404_override'] = '';
 
 $route['rest/product/get-item'] = 'rest/Products/get_item';
+$route['rest/purchase/get-plan'] = 'rest/PurchaseItem/fetch_plan';
+$route['rest/purchase/plan/delete-item'] = 'rest/PurchaseItem/delete_plan_item';
 
 
 /* End of file routes.php */

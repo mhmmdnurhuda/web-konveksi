@@ -14,6 +14,8 @@ class Pembeliankain extends CI_Controller{
 	if($this->session->userdata('akses')=='1' || $this->session->userdata('akses')=='2'|| $this->session->userdata('akses')=='3'){
 		$data['data']=$this->m_kain->tampil_kain();
 		$data['data2']=$this->m_rencanabaru->tampil_rencana();
+
+
 		$this->load->view('admin/v_pembeliankain',$data);
 	}else{
         echo "Halaman tidak ditemukan";

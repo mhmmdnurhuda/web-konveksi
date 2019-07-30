@@ -37,7 +37,7 @@ class Products extends CI_Controller {
 			echo json_encode(
 				array(
 					"error" => array(
-						"reason" =>  "NOT_FOND"
+						"reason" =>  "NOT_FOUND"
 					)
 				)
 			);
